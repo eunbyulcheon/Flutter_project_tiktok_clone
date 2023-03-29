@@ -23,14 +23,6 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
     }
   }
 
-  String? _validateEmail(String? value) {
-    final regExp = RegExp(
-        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-    return value!.isNotEmpty && !regExp.hasMatch(value)
-        ? 'Enter a valid email address'
-        : null;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +54,12 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
                 ),
                 cursorColor: Theme.of(context).primaryColor,
                 keyboardType: TextInputType.emailAddress,
-                validator: _validateEmail,
+                validator: (value) {
+                  if (value != null && value.isEmpty) {
+                    return 'Please write your email';
+                  }
+                  return null;
+                },
                 onSaved: (newValue) {
                   if (newValue != null) {
                     formData['email'] = newValue;
@@ -86,7 +83,12 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
                 ),
                 cursorColor: Theme.of(context).primaryColor,
                 obscureText: true,
-                validator: (value) => null,
+                validator: (value) {
+                  if (value != null && value.isEmpty) {
+                    return 'Please write your password';
+                  }
+                  return null;
+                },
                 onSaved: (newValue) {
                   if (newValue != null) {
                     formData['password'] = newValue;
