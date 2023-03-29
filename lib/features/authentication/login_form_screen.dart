@@ -85,6 +85,7 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
                   ),
                 ),
                 cursorColor: Theme.of(context).primaryColor,
+                obscureText: true,
                 validator: (value) => null,
                 onSaved: (newValue) {
                   if (newValue != null) {
