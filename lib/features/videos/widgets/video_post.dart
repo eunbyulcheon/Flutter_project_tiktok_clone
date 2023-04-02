@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -7,11 +8,13 @@ import 'package:visibility_detector/visibility_detector.dart';
 class VideoPost extends StatefulWidget {
   final Function onVideoFinished;
   final int index;
+  final String comment;
 
   const VideoPost({
     super.key,
     required this.onVideoFinished,
     required this.index,
+    required this.comment,
   });
 
   @override
@@ -26,6 +29,7 @@ class _VideoPostState extends State<VideoPost>
   late final AnimationController _animationController;
 
   bool _isPaused = false;
+  bool _isShownMore = false;
 
   final Duration _animationDuration = const Duration(milliseconds: 200);
 
@@ -40,8 +44,9 @@ class _VideoPostState extends State<VideoPost>
 
   void _initVideoPlayer() async {
     await _videoPlayerController.initialize();
-    setState(() {});
+    await _videoPlayerController.setLooping(true);
     _videoPlayerController.addListener(_onVideoChange);
+    setState(() {});
   }
 
   @override
@@ -81,6 +86,18 @@ class _VideoPostState extends State<VideoPost>
     setState(() {
       _isPaused = !_isPaused;
     });
+  }
+
+  void _onToggleShowMore() {
+    setState(() {
+      _isShownMore = !_isShownMore;
+    });
+  }
+
+  String _setComment() {
+    return widget.comment.length > 20
+        ? '${widget.comment.substring(0, 20)}...'
+        : widget.comment;
   }
 
   @override
@@ -124,6 +141,63 @@ class _VideoPostState extends State<VideoPost>
                   ),
                 ),
               ),
+            ),
+          ),
+          Positioned(
+            bottom: 25,
+            left: 20,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  '@Kimberly',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: Sizes.size20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Gaps.v10,
+                Row(
+                  children: [
+                    Text(
+                      _isShownMore ? widget.comment : _setComment(),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: Sizes.size16,
+                      ),
+                    ),
+                    Gaps.h10,
+                    GestureDetector(
+                      onTap: _onToggleShowMore,
+                      child: Text(
+                        _isShownMore ? 'See less' : 'See more',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: Sizes.size16,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            bottom: 25,
+            right: 20,
+            child: Column(
+              children: const [
+                CircleAvatar(
+                  radius: 25,
+                  backgroundColor: Colors.black,
+                  foregroundColor: Colors.white,
+                  foregroundImage: NetworkImage(
+                    'https://avatars.githubusercontent.com/u/75746836?v=4',
+                  ),
+                  child: Text('Kim'),
+                )
+              ],
             ),
           ),
         ],

@@ -29,6 +29,7 @@ class _VideoTimelineScreenState extends State<VideoTimelineScreen> {
   }
 
   void _onVideoFinish() {
+    return;
     _pageController.nextPage(
       duration: _scrollDuration,
       curve: _scrollCurve,
@@ -48,8 +49,11 @@ class _VideoTimelineScreenState extends State<VideoTimelineScreen> {
       scrollDirection: Axis.vertical,
       onPageChanged: _onPageChanged,
       itemCount: _itemCount,
-      itemBuilder: (context, index) =>
-          VideoPost(onVideoFinished: _onVideoFinish, index: index),
+      itemBuilder: (context, index) => VideoPost(
+        onVideoFinished: _onVideoFinish,
+        index: index,
+        comment: 'Spring is finally here!',
+      ),
     );
   }
 }
