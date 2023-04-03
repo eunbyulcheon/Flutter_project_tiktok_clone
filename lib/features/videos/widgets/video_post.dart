@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/features/videos/widgets/video_button.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -70,7 +71,9 @@ class _VideoPostState extends State<VideoPost>
   }
 
   void _onVisibilityChanged(VisibilityInfo info) {
-    if (info.visibleFraction == 1 && !_videoPlayerController.value.isPlaying) {
+    if (info.visibleFraction == 1 &&
+        !_isPaused &&
+        !_videoPlayerController.value.isPlaying) {
       _videoPlayerController.play();
     }
   }
@@ -150,7 +153,7 @@ class _VideoPostState extends State<VideoPost>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  '@Kimberly',
+                  '@kimberly',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: Sizes.size20,
@@ -196,7 +199,22 @@ class _VideoPostState extends State<VideoPost>
                     'https://avatars.githubusercontent.com/u/75746836?v=4',
                   ),
                   child: Text('Kim'),
-                )
+                ),
+                Gaps.v20,
+                VideoButton(
+                  icon: FontAwesomeIcons.solidHeart,
+                  text: '2.9M',
+                ),
+                Gaps.v20,
+                VideoButton(
+                  icon: FontAwesomeIcons.solidComment,
+                  text: '33.0K',
+                ),
+                Gaps.v20,
+                VideoButton(
+                  icon: FontAwesomeIcons.share,
+                  text: 'Share',
+                ),
               ],
             ),
           ),
