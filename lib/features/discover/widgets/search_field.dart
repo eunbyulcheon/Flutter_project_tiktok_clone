@@ -21,6 +21,7 @@ class _SearchFieldState extends State<SearchField> {
   }
 
   void _clearWriting() {
+    FocusScope.of(context).unfocus();
     _textEditingController.clear();
     setState(() {
       _isWriting = false;
