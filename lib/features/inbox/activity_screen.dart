@@ -78,12 +78,19 @@ class _ActivityScreenState extends State<ActivityScreen>
   }
 
   @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: GestureDetector(
           onTap: _onToggleTap,
           child: Row(
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text('All activity'),

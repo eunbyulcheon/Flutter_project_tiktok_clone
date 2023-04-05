@@ -16,7 +16,7 @@ class MainNavScreen extends StatefulWidget {
 }
 
 class _MainNavScreenState extends State<MainNavScreen> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 3;
 
   void _onTap(int index) {
     setState(() {
