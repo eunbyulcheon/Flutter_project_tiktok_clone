@@ -4,6 +4,7 @@ import 'package:tiktok_clone/constants/breakpoints.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/discover/widgets/search_field.dart';
+import 'package:tiktok_clone/utilities.dart';
 
 final tabs = [
   'Top',
@@ -60,10 +61,11 @@ class _DiscoverScreenState extends State<DiscoverScreen>
         appBar: AppBar(
           elevation: 1,
           title: ConstrainedBox(
-              constraints: const BoxConstraints(
-                maxWidth: Breakpoints.sm,
-              ),
-              child: const SearchField()),
+            constraints: const BoxConstraints(
+              maxWidth: Breakpoints.sm,
+            ),
+            child: const SearchField(),
+          ),
           bottom: TabBar(
             controller: _tabController,
             splashFactory: NoSplash.splashFactory,
@@ -73,9 +75,7 @@ class _DiscoverScreenState extends State<DiscoverScreen>
               fontWeight: FontWeight.w600,
               fontSize: Sizes.size16,
             ),
-            unselectedLabelColor: Colors.grey.shade500,
-            labelColor: Colors.black,
-            indicatorColor: Colors.black,
+            indicatorColor: Theme.of(context).tabBarTheme.indicatorColor,
             tabs: [
               for (var tab in tabs)
                 Tab(
@@ -128,7 +128,9 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                         constraints.maxWidth > 250)
                       DefaultTextStyle(
                         style: TextStyle(
-                          color: Colors.grey.shade600,
+                          color: isDarkMode(context)
+                              ? Colors.grey.shade300
+                              : Colors.grey.shade600,
                           fontWeight: FontWeight.w600,
                         ),
                         child: Row(

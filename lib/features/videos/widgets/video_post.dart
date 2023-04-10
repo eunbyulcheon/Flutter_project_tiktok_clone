@@ -264,12 +264,14 @@ class _VideoPostState extends State<VideoPost>
             right: 20,
             child: GestureDetector(
               onTap: _onToggleVolume,
-              child: FaIcon(
-                _isVolumeLow
-                    ? FontAwesomeIcons.volumeXmark
-                    : FontAwesomeIcons.volumeHigh,
-                color: Colors.white,
-                size: Sizes.size24,
+              child: SafeArea(
+                child: FaIcon(
+                  _isVolumeLow
+                      ? FontAwesomeIcons.volumeXmark
+                      : FontAwesomeIcons.volumeHigh,
+                  color: Colors.white,
+                  size: Sizes.size24,
+                ),
               ),
             ),
           )

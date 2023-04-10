@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/utilities.dart';
 
 class SearchField extends StatefulWidget {
   const SearchField({super.key});
@@ -49,8 +50,12 @@ class _SearchFieldState extends State<SearchField> {
         onSubmitted: _onSearchSubmitted,
         decoration: InputDecoration(
           hintText: 'Search',
+          hintStyle: TextStyle(
+            color: isDarkMode(context) ? Colors.white : Colors.grey.shade800,
+          ),
           filled: true,
-          fillColor: Colors.grey.shade200,
+          fillColor:
+              isDarkMode(context) ? Colors.grey.shade800 : Colors.grey.shade200,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(Sizes.size12),
             borderSide: BorderSide.none,

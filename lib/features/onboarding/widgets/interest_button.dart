@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/utilities.dart';
 
 class InterestButton extends StatefulWidget {
   const InterestButton({
@@ -33,7 +34,11 @@ class _InterestButtonState extends State<InterestButton> {
           vertical: Sizes.size12,
         ),
         decoration: BoxDecoration(
-          color: _isSelected ? Theme.of(context).primaryColor : Colors.white,
+          color: _isSelected
+              ? Theme.of(context).primaryColor
+              : isDarkMode(context)
+                  ? Colors.grey.shade300
+                  : Colors.white,
           borderRadius: BorderRadius.circular(
             Sizes.size32,
           ),
