@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tiktok_clone/constants/breakpoints.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/inbox/chat_detail_screen.dart';
 
@@ -108,7 +109,14 @@ class _ChatsScreenState extends State<ChatsScreen> {
             opacity: animation,
             child: SizeTransition(
               sizeFactor: animation,
-              child: _makeTile(index),
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(
+                    maxWidth: Breakpoints.sm,
+                  ),
+                  child: _makeTile(index),
+                ),
+              ),
             ),
           );
         },
