@@ -152,10 +152,12 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                   bottom: 0,
                   width:
                       size.width > Breakpoints.sm ? Breakpoints.sm : size.width,
-                  child: BottomAppBar(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: Sizes.size16,
-                      vertical: Sizes.size10,
+                  child: Container(
+                    padding: const EdgeInsets.only(
+                      left: Sizes.size16,
+                      right: Sizes.size16,
+                      top: Sizes.size10,
+                      bottom: Sizes.size48,
                     ),
                     color: Colors.grey.shade100,
                     child: Row(

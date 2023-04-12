@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
-import 'package:tiktok_clone/features/main_navigation/main_nav.dart';
+import 'package:tiktok_clone/features/authentication/sign_up_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +27,7 @@ class App extends StatelessWidget {
       title: 'Tiktok Clone',
       themeMode: ThemeMode.system,
       theme: ThemeData(
+        useMaterial3: true,
         textTheme: Typography.blackMountainView,
         brightness: Brightness.light,
         scaffoldBackgroundColor: Colors.white,
@@ -42,6 +43,7 @@ class App extends StatelessWidget {
         appBarTheme: const AppBarTheme(
           foregroundColor: Colors.black,
           backgroundColor: Colors.white,
+          surfaceTintColor: Colors.white,
           elevation: 0,
           titleTextStyle: TextStyle(
             color: Colors.black,
@@ -62,8 +64,11 @@ class App extends StatelessWidget {
         ),
       ),
       darkTheme: ThemeData(
-          tabBarTheme: const TabBarTheme(
+          useMaterial3: true,
+          tabBarTheme: TabBarTheme(
             indicatorColor: Colors.white,
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.grey.shade700,
           ),
           textSelectionTheme: const TextSelectionThemeData(
             cursorColor: Color(0xFFE9435A),
@@ -73,6 +78,14 @@ class App extends StatelessWidget {
           scaffoldBackgroundColor: Colors.black,
           appBarTheme: AppBarTheme(
             backgroundColor: Colors.grey.shade900,
+            surfaceTintColor: Colors.grey.shade900,
+            titleTextStyle: const TextStyle(
+              color: Colors.white,
+              fontSize: Sizes.size16 + Sizes.size2,
+              fontWeight: FontWeight.w600,
+            ),
+            actionsIconTheme: IconThemeData(color: Colors.grey.shade100),
+            iconTheme: IconThemeData(color: Colors.grey.shade100),
           ),
           bottomAppBarTheme: BottomAppBarTheme(
             color: Colors.grey.shade900,
@@ -81,7 +94,7 @@ class App extends StatelessWidget {
           iconTheme: IconThemeData(
             color: Colors.grey.shade500,
           )),
-      home: const MainNavScreen(),
+      home: const SignUpScreen(),
     );
   }
 }

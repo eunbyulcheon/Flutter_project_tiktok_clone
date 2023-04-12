@@ -112,11 +112,14 @@ class _TutorialScreenState extends State<TutorialScreen> {
             ),
           ),
         ),
-        bottomNavigationBar: BottomAppBar(
-          color: isDarkMode(context) ? Colors.black : Colors.white,
+        bottomNavigationBar: Container(
+          color: isDarkMode(context) ? null : Colors.grey.shade50,
           child: Padding(
-            padding: const EdgeInsets.all(
-              Sizes.size24,
+            padding: const EdgeInsets.only(
+              top: Sizes.size32,
+              bottom: Sizes.size64,
+              left: Sizes.size24,
+              right: Sizes.size24,
             ),
             child: AnimatedOpacity(
               duration: const Duration(milliseconds: 300),
