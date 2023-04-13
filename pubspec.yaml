@@ -48,6 +48,11 @@ dependencies:
 
   google_fonts: 4.0.1
 
+  go_router: 6.0.2
+  camera: ^0.10.4
+
+  permission_handler: ^10.2.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

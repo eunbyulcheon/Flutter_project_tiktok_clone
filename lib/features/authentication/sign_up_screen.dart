@@ -1,30 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
-import 'package:tiktok_clone/features/authentication/username_screen.dart';
 import 'package:tiktok_clone/features/authentication/log_in_screen.dart';
+
 import 'package:tiktok_clone/features/authentication/widgets/auth_button.dart';
 import 'package:tiktok_clone/generated/l10n.dart';
 import 'package:tiktok_clone/utilities.dart';
 
 class SignUpScreen extends StatelessWidget {
+  static const routeURL = '/';
+  static const routeName = 'signup';
   const SignUpScreen({super.key});
 
-  void _onLoginTap(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const LogInScreen(),
-      ),
-    );
+  void _onLoginTap(BuildContext context) async {
+    context.push(LogInScreen.routeName);
   }
 
   void _onEmailTap(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const UsernameScreen(),
-      ),
-    );
+    context.pushNamed('username_screen');
   }
 
   @override
