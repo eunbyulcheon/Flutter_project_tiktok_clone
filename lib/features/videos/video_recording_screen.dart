@@ -13,8 +13,9 @@ class VideoRecordingScreen extends StatefulWidget {
 
 class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
   bool _hasPermission = false;
+  bool _isSelfieMode = false;
 
-  late final CameraController _cameraController;
+  late CameraController _cameraController;
 
   Future<void> initCamera() async {
     final cameras = await availableCameras();
@@ -22,8 +23,9 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
     if (cameras.isEmpty) return;
 
     _cameraController = CameraController(
-      cameras[0],
+      cameras[_isSelfieMode ? 1 : 0],
       ResolutionPreset.ultraHigh,
+      imageFormatGroup: ImageFormatGroup.bgra8888,
     );
 
     await _cameraController.initialize();
@@ -53,13 +55,26 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
   }
 
   @override
+  void dispose() {
+    _cameraController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _toggleSelfieMode() async {
+    _isSelfieMode = !_isSelfieMode;
+    await initCamera();
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: !_hasPermission || _cameraController.value.isInitialized
-          ? SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: Column(
+      body: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: !_hasPermission || !_cameraController.value.isInitialized
+            ? Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
@@ -73,9 +88,25 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
                   Gaps.v20,
                   CircularProgressIndicator.adaptive(),
                 ],
+              )
+            : Stack(
+                alignment: Alignment.center,
+                children: [
+                  CameraPreview(_cameraController),
+                  Positioned(
+                    top: Sizes.size80,
+                    left: Sizes.size5,
+                    child: IconButton(
+                      onPressed: _toggleSelfieMode,
+                      color: Colors.white,
+                      icon: const Icon(
+                        Icons.cameraswitch,
+                      ),
+                    ),
+                  )
+                ],
               ),
-            )
-          : CameraPreview(_cameraController),
+      ),
     );
   }
 }

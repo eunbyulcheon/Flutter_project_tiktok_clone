@@ -237,7 +237,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             aspectRatio: 9 / 13,
                             child: FadeInImage.assetNetwork(
                                 fit: BoxFit.cover,
-                                placeholder: 'assets/images/placeholder.jpg',
+                                placeholder: 'assets/images/placeholder.png',
                                 image:
                                     'https://images.unsplash.com/photo-1516483638261-f4dbaf036963?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=686&q=80'),
                           ),
