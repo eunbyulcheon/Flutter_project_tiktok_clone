@@ -30,6 +30,8 @@
 	<string>your usage description here</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>your usage description here</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>your usage description here</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UISceneConfigurations</key>
