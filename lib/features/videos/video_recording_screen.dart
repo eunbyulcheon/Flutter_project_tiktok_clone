@@ -15,6 +15,8 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
   bool _hasPermission = false;
   bool _isSelfieMode = false;
 
+  late FlashMode _flashMode;
+
   late CameraController _cameraController;
 
   Future<void> initCamera() async {
@@ -29,6 +31,8 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
     );
 
     await _cameraController.initialize();
+
+    _flashMode = _cameraController.value.flashMode;
   }
 
   Future<void> initPermissions() async {
@@ -66,6 +70,12 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
     setState(() {});
   }
 
+  Future<void> _setFlashMode(FlashMode newFlashMode) async {
+    await _cameraController.setFlashMode(newFlashMode);
+    _flashMode = newFlashMode;
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,15 +105,59 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
                   CameraPreview(_cameraController),
                   Positioned(
                     top: Sizes.size80,
-                    left: Sizes.size5,
-                    child: IconButton(
-                      onPressed: _toggleSelfieMode,
-                      color: Colors.white,
-                      icon: const Icon(
-                        Icons.cameraswitch,
-                      ),
+                    right: Sizes.size5,
+                    child: Column(
+                      children: [
+                        IconButton(
+                          onPressed: _toggleSelfieMode,
+                          color: Colors.white,
+                          icon: const Icon(
+                            Icons.cameraswitch,
+                          ),
+                        ),
+                        Gaps.v10,
+                        IconButton(
+                          onPressed: () => _setFlashMode(FlashMode.off),
+                          color: _flashMode == FlashMode.off
+                              ? Theme.of(context).primaryColor
+                              : Colors.white,
+                          icon: const Icon(
+                            Icons.flash_off_outlined,
+                          ),
+                        ),
+                        Gaps.v10,
+                        IconButton(
+                          onPressed: () => _setFlashMode(FlashMode.always),
+                          color: _flashMode == FlashMode.always
+                              ? Theme.of(context).primaryColor
+                              : Colors.white,
+                          icon: const Icon(
+                            Icons.flash_on_rounded,
+                          ),
+                        ),
+                        Gaps.v10,
+                        IconButton(
+                          onPressed: () => _setFlashMode(FlashMode.auto),
+                          color: _flashMode == FlashMode.auto
+                              ? Theme.of(context).primaryColor
+                              : Colors.white,
+                          icon: const Icon(
+                            Icons.flash_auto_rounded,
+                          ),
+                        ),
+                        Gaps.v10,
+                        IconButton(
+                          onPressed: () => _setFlashMode(FlashMode.torch),
+                          color: _flashMode == FlashMode.torch
+                              ? Theme.of(context).primaryColor
+                              : Colors.white,
+                          icon: const Icon(
+                            Icons.flashlight_on_rounded,
+                          ),
+                        ),
+                      ],
                     ),
-                  )
+                  ),
                 ],
               ),
       ),
