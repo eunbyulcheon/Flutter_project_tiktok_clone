@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/authentication/log_in_screen.dart';
+import 'package:tiktok_clone/features/authentication/username_screen.dart';
 
 import 'package:tiktok_clone/features/authentication/widgets/auth_button.dart';
 import 'package:tiktok_clone/generated/l10n.dart';
@@ -15,11 +16,16 @@ class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
 
   void _onLoginTap(BuildContext context) async {
-    context.push(LogInScreen.routeName);
+    context.pushNamed(LogInScreen.routeName);
   }
 
   void _onEmailTap(BuildContext context) {
-    context.pushNamed('username_screen');
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const UsernameScreen(),
+      ),
+    );
   }
 
   @override
