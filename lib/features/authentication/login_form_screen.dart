@@ -26,7 +26,6 @@ class _LoginFormScreenState extends ConsumerState<LoginFormScreen> {
               formData['password']!,
               context,
             );
-        // context.goNamed(InterestsScreen.routeName);
       }
     }
   }
