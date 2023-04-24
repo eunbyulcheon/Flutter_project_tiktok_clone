@@ -16,14 +16,22 @@ class BirthdayScreen extends ConsumerStatefulWidget {
 class _BirthdayScreenState extends ConsumerState<BirthdayScreen> {
   final TextEditingController _birthdayController = TextEditingController();
 
-  DateTime initialDate = DateTime.now();
-  late DateTime twelveYearsAgo =
-      DateTime(initialDate.year - 12, initialDate.month, initialDate.day);
+  late DateTime initialDate;
+  static const minAge = 12;
 
   @override
   void initState() {
     super.initState();
-    _setDateTextField(initialDate);
+
+    setState(() {
+      DateTime now = DateTime.now();
+      initialDate = DateTime(
+        now.year - minAge,
+        now.month,
+        now.day,
+      );
+      _setDateTextField(initialDate);
+    });
   }
 
   @override
@@ -33,6 +41,11 @@ class _BirthdayScreenState extends ConsumerState<BirthdayScreen> {
   }
 
   void _onNextTap() {
+    final state = ref.read(signUpForm.notifier).state;
+    ref.read(signUpForm.notifier).state = {
+      ...state,
+      'birthday': _birthdayController.value.text
+    };
     ref.read(signUpProvider.notifier).signUp(context);
   }
 
@@ -74,7 +87,6 @@ class _BirthdayScreenState extends ConsumerState<BirthdayScreen> {
             TextField(
               enabled: false,
               controller: _birthdayController,
-              onEditingComplete: _onNextTap,
               decoration: InputDecoration(
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
@@ -107,7 +119,6 @@ class _BirthdayScreenState extends ConsumerState<BirthdayScreen> {
           child: CupertinoDatePicker(
             mode: CupertinoDatePickerMode.date,
             initialDateTime: initialDate,
-            minimumDate: twelveYearsAgo,
             maximumDate: initialDate,
             onDateTimeChanged: _setDateTextField,
           ),
