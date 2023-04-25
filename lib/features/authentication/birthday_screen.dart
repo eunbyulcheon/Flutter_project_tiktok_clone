@@ -112,8 +112,8 @@ class _BirthdayScreenState extends ConsumerState<BirthdayScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        padding: const EdgeInsets.symmetric(vertical: 30),
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.symmetric(vertical: 50),
         child: SizedBox(
           height: 200,
           child: CupertinoDatePicker(
