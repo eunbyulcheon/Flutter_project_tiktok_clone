@@ -11,7 +11,7 @@ class VideoTimelineScreen extends ConsumerStatefulWidget {
 }
 
 class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
-  int _itemCount = 4;
+  int _itemCount = 0;
 
   final PageController _pageController = PageController();
 
@@ -25,8 +25,7 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
       curve: _scrollCurve,
     );
     if (page == _itemCount - 1) {
-      _itemCount = _itemCount + 4;
-      setState(() {});
+      ref.watch(timelineProvider.notifier).fetchNextPage();
     }
   }
 
@@ -51,18 +50,20 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
   @override
   Widget build(BuildContext context) {
     return ref.watch(timelineProvider).when(
-          loading: () => const Center(
-            child: CircularProgressIndicator.adaptive(),
-          ),
-          error: (error, stackTrace) => Center(
-            child: Text(
-              'Could not load videos: $error',
-              style: const TextStyle(
-                color: Colors.white,
+        loading: () => const Center(
+              child: CircularProgressIndicator.adaptive(),
+            ),
+        error: (error, stackTrace) => Center(
+              child: Text(
+                'Could not load videos: $error',
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
               ),
             ),
-          ),
-          data: (videos) => RefreshIndicator(
+        data: (videos) {
+          _itemCount = videos.length;
+          return RefreshIndicator(
             onRefresh: _onRefresh,
             displacement: 50,
             edgeOffset: 20,
@@ -81,7 +82,7 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
                     description: videoData.description,
                   );
                 }),
-          ),
-        );
+          );
+        });
   }
 }
