@@ -33,11 +33,24 @@ class VideosRepository {
     }
   }
 
-  Future<void> likeVideo(String videoId, String userId) async {
-    await _db.collection('likes').add({
-      'videoId': videoId,
-      'userId': userId,
-    });
+  Future<bool> getVideoLikes(String videoId, String userId) async {
+    final likes =
+        await _db.collection('likes').doc('${videoId}000$userId').get();
+    return likes.exists;
+  }
+
+  Future<void> toggleVideoLikes(String videoId, String userId) async {
+    final query = _db.collection('likes').doc('${videoId}000$userId');
+    final like = await query.get();
+    if (!like.exists) {
+      await query.set(
+        {
+          'createdAt': DateTime.now().millisecondsSinceEpoch,
+        },
+      );
+    } else {
+      await query.delete();
+    }
   }
 }
 
