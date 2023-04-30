@@ -43,8 +43,10 @@ class UploadVideoViewModel extends AsyncNotifier<void> {
               createdAt: DateTime.now().microsecondsSinceEpoch,
             ),
           );
-          context.pop();
-          context.pop();
+          if (context.mounted) {
+            context.pop();
+            context.pop();
+          }
         }
       });
     }

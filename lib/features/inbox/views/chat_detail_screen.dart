@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/breakpoints.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/features/inbox/view_models/messages_vm.dart';
 
-class ChatDetailScreen extends StatefulWidget {
+class ChatDetailScreen extends ConsumerStatefulWidget {
   static const String routeName = 'chatDetail';
   static const String routeURL = ':chatId';
 
@@ -16,10 +18,11 @@ class ChatDetailScreen extends StatefulWidget {
   });
 
   @override
-  State<ChatDetailScreen> createState() => _ChatDetailScreenState();
+  ConsumerState<ChatDetailScreen> createState() => _ChatDetailScreenState();
 }
 
-class _ChatDetailScreenState extends State<ChatDetailScreen> {
+class _ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
+  final TextEditingController _editingController = TextEditingController();
   bool _isWriting = false;
 
   void _onStartWriting() {
@@ -35,9 +38,18 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
     });
   }
 
+  void _onSendPress() {
+    final text = _editingController.text;
+    if (text == '') return;
+    ref.read(messagesProvider.notifier).sendMessage(text);
+    _editingController.text = '';
+  }
+
   @override
   Widget build(BuildContext context) {
+    final isLoading = ref.watch(messagesProvider).isLoading;
     final size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
         title: ListTile(
@@ -174,6 +186,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                           child: SizedBox(
                             height: Sizes.size44,
                             child: TextField(
+                              controller: _editingController,
                               onTap: _onStartWriting,
                               expands: true,
                               minLines: null,
@@ -217,21 +230,17 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                             ),
                           ),
                         ),
-                        Gaps.h16,
-                        Container(
-                          padding: const EdgeInsets.all(
-                            Sizes.size8,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade300,
-                            borderRadius: BorderRadius.circular(Sizes.size20),
-                          ),
-                          child: FaIcon(
-                            FontAwesomeIcons.paperPlane,
+                        Gaps.h6,
+                        IconButton(
+                          onPressed: isLoading ? null : _onSendPress,
+                          icon: FaIcon(
+                            isLoading
+                                ? FontAwesomeIcons.hourglass
+                                : FontAwesomeIcons.paperPlane,
                             color: _isWriting
                                 ? Theme.of(context).primaryColor
-                                : Colors.white,
-                            size: Sizes.size20,
+                                : Colors.black,
+                            size: Sizes.size24,
                           ),
                         ),
                       ],
