@@ -5,11 +5,11 @@ import 'package:tiktok_clone/constants/breakpoints.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/settings/settings_screen.dart';
-import 'package:tiktok_clone/features/users/edit_profile_screen.dart';
 import 'package:tiktok_clone/features/users/view_models/users_view_model.dart';
-import 'package:tiktok_clone/features/users/widgets/avatar.dart';
-import 'package:tiktok_clone/features/users/widgets/persistent_tabbar.dart';
-import 'package:tiktok_clone/features/users/widgets/user_accounts.dart';
+import 'package:tiktok_clone/features/users/views/edit_profile_screen.dart';
+import 'package:tiktok_clone/features/users/views/widgets/avatar.dart';
+import 'package:tiktok_clone/features/users/views/widgets/persistent_tabbar.dart';
+import 'package:tiktok_clone/features/users/views/widgets/user_accounts.dart';
 
 class UserProfileScreen extends ConsumerStatefulWidget {
   final String username;
