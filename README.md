@@ -118,7 +118,7 @@ A cross-platform TikTok clone project created with Flutter and Firebase.
     <tr>
       <th rowspan="4">Videos</th>
       <td colspan="2" align="center">Flutter Widgets</td>
-      <td><code>CircularProgressIndicator</code>, <code>RefreshIndicator</code>, <code>PageView</code>, <code>SizedBox</code>, <code>Positioned</code>, <code>Expanded</code>, <code>CircleAvatar</code>, <code>showModalBottomSheet</code>, <code>Stack</code>, <code>File</code> </td>
+      <td><code>CircularProgressIndicator</code>, <code>RefreshIndicator</code>, <code>PageView</code>, <code>SizedBox</code>, <code>Positioned</code>, <code>Expanded</code>, <code>CircleAvatar</code>, <code>showModalBottomSheet</code>, <code>Stack</code>, <code>File</code>, <code>Spacer</code> </td>
     </tr>
     <tr> 
       <td rowspan="3" align="center">Screens</td>
